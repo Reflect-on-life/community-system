@@ -1,0 +1,5 @@
+测试名称，方法，端点，期望状态，实际状态，结果
+"获取活动列表","GET","/api/activity/list",200,500,"失败"
+"获取活动详情 (ID=1)","GET","/api/activity/detail/1",200,500,"失败"
+"发布活动","POST","/api/activity/publish",200,500,"失败"
+"分页查看报名记录","GET","/api/admin/activity-check/page?page=1&size=10",200,500,"失败"

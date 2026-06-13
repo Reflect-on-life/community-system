@@ -1,0 +1,379 @@
+/* 主题 CSS 变量 - 基于 HSL 格式，便于动态调整 */
+:root {
+  /* 基础色彩系统 */
+  --background: 210 20% 98%;
+  --foreground: 220 20% 10%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 220 20% 10%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 220 20% 10%;
+
+  --primary: 175 70% 41%;
+  --primary-foreground: 0 0% 100%;
+  --primary-glow: 175 80% 55%;
+
+  --secondary: 210 20% 96%;
+  --secondary-foreground: 220 20% 20%;
+
+  --muted: 210 15% 93%;
+  --muted-foreground: 220 10% 45%;
+
+  --accent: 175 50% 94%;
+  --accent-foreground: 175 70% 30%;
+
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 100%;
+
+  --success: 152 69% 40%;
+  --success-foreground: 0 0% 100%;
+
+  --warning: 38 92% 50%;
+  --warning-foreground: 0 0% 100%;
+
+  --info: 205 85% 55%;
+  --info-foreground: 0 0% 100%;
+
+  --border: 210 20% 90%;
+  --input: 210 20% 90%;
+  --ring: 175 70% 41%;
+
+  --radius: 0.75rem;
+
+  /* 自定义渐变 */
+  --gradient-primary: linear-gradient(135deg, hsl(175 70% 41%), hsl(190 75% 50%));
+  --gradient-hero: linear-gradient(180deg, hsl(210 20% 98%) 0%, hsl(175 30% 95%) 100%);
+  --gradient-card-hover: linear-gradient(135deg, hsl(175 50% 97%), hsl(190 40% 97%));
+  --gradient-sidebar: linear-gradient(180deg, hsl(220 20% 15%) 0%, hsl(220 25% 12%) 100%);
+
+  /* 阴影系统 */
+  --shadow-sm: 0 1px 2px 0 hsl(220 20% 10% / 0.03);
+  --shadow-md: 0 4px 6px -1px hsl(220 20% 10% / 0.05), 0 2px 4px -2px hsl(220 20% 10% / 0.03);
+  --shadow-lg: 0 10px 15px -3px hsl(220 20% 10% / 0.06), 0 4px 6px -4px hsl(220 20% 10% / 0.04);
+  --shadow-xl: 0 20px 25px -5px hsl(220 20% 10% / 0.08), 0 8px 10px -6px hsl(220 20% 10% / 0.04);
+  --shadow-glow: 0 0 30px -5px hsl(175 70% 41% / 0.25);
+  --shadow-card: 0 1px 3px hsl(220 20% 10% / 0.04), 0 4px 12px hsl(220 20% 10% / 0.03);
+
+  /* 侧边栏专用变量 */
+  --sidebar-background: 220 20% 14%;
+  --sidebar-foreground: 210 15% 85%;
+  --sidebar-primary: 175 70% 50%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 220 15% 22%;
+  --sidebar-accent-foreground: 210 15% 90%;
+  --sidebar-border: 220 15% 22%;
+  --sidebar-ring: 175 70% 50%;
+}
+
+/* 深色模式 */
+.dark {
+  --background: 220 20% 10%;
+  --foreground: 210 15% 95%;
+
+  --card: 220 20% 14%;
+  --card-foreground: 210 15% 95%;
+
+  --popover: 220 20% 14%;
+  --popover-foreground: 210 15% 95%;
+
+  --primary: 175 70% 50%;
+  --primary-foreground: 220 20% 10%;
+  --primary-glow: 175 80% 60%;
+
+  --secondary: 220 15% 20%;
+  --secondary-foreground: 210 15% 90%;
+
+  --muted: 220 15% 18%;
+  --muted-foreground: 215 15% 55%;
+
+  --accent: 175 30% 20%;
+  --accent-foreground: 175 70% 70%;
+
+  --destructive: 0 62% 50%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 220 15% 22%;
+  --input: 220 15% 22%;
+  --ring: 175 70% 50%;
+
+  --gradient-primary: linear-gradient(135deg, hsl(175 70% 45%), hsl(190 75% 55%));
+  --gradient-hero: linear-gradient(180deg, hsl(220 20% 10%) 0%, hsl(220 25% 8%) 100%);
+  --gradient-card-hover: linear-gradient(135deg, hsl(220 20% 16%), hsl(220 18% 18%));
+  --gradient-sidebar: linear-gradient(180deg, hsl(220 25% 8%) 0%, hsl(220 25% 6%) 100%);
+
+  --shadow-glow: 0 0 30px -5px hsl(175 70% 50% / 0.3);
+  --shadow-card: 0 1px 3px hsl(0 0% 0% / 0.2), 0 4px 12px hsl(0 0% 0% / 0.15);
+}
+
+/* 兼容旧版 CSS 变量（向后兼容） */
+:root {
+  --bg-body: hsl(var(--background));
+  --bg-card: hsl(var(--card));
+  --bg-hover: hsl(var(--secondary));
+  --text-main: hsl(var(--foreground));
+  --text-secondary: hsl(var(--muted-foreground));
+  --border-color: hsl(var(--border));
+  --primary-color: hsl(var(--primary));
+}
+
+[data-theme="dark"] {
+  --bg-body: hsl(var(--background));
+  --bg-card: hsl(var(--card));
+  --bg-hover: hsl(var(--secondary));
+  --text-main: hsl(var(--foreground));
+  --text-secondary: hsl(var(--muted-foreground));
+  --border-color: hsl(var(--border));
+  --primary-color: hsl(var(--primary));
+}
+
+/* 全局过渡动画 */
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 禁用某些元素的过渡以提高性能 */
+.el-loading,
+.el-message,
+.el-notification,
+.el-dialog {
+  transition: none;
+}
+
+/* 适老模式 */
+body.elder-mode {
+  font-size: 18px;
+  line-height: 1.8;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/* 适老模式下的侧边栏背景色 */
+body.elder-mode .sidebar,
+body.elder-mode .sidebar-logo-container {
+  background-color: #f5f7fa !important;
+  color: #303133 !important;
+}
+
+body.elder-mode .sidebar-logo-container {
+  border-bottom-color: #e4e7ed !important;
+}
+
+body.elder-mode .logo-title {
+  color: #303133 !important;
+}
+
+/* 适老模式下的菜单样式调整 */
+body.elder-mode .sidebar-menu .el-menu-item,
+body.elder-mode .sidebar-menu .el-sub-menu__title {
+  height: 70px !important;
+  line-height: 70px !important;
+  font-size: 20px !important;
+  color: #303133 !important;
+  background-color: transparent !important;
+}
+
+body.elder-mode .sidebar-menu .el-menu-item:hover,
+body.elder-mode .sidebar-menu .el-sub-menu__title:hover {
+  color: #409eff !important;
+  background-color: #ecf5ff !important;
+}
+
+body.elder-mode .sidebar-menu .el-menu-item.is-active {
+  color: #ffffff !important;
+  background-color: #409eff !important;
+}
+
+body.elder-mode .sidebar-menu .el-menu-item .el-icon,
+body.elder-mode .sidebar-menu .el-sub-menu__title .el-icon {
+  font-size: 24px !important;
+  color: #303133 !important;
+}
+
+body.elder-mode .sidebar-menu .el-menu-item.is-active .el-icon {
+  color: #ffffff !important;
+}
+
+body.elder-mode .sidebar-menu .el-sub-menu .el-menu-item {
+  height: 60px !important;
+  line-height: 60px !important;
+  font-size: 18px !important;
+}
+
+body.elder-mode .el-sub-menu__icon-arrow {
+  font-size: 20px !important;
+  color: #303133 !important;
+}
+
+body.elder-mode .sidebar-menu .el-sub-menu__icon-arrow {
+  color: #909399 !important;
+}
+
+body.elder-mode .el-menu--collapse .el-menu-item {
+  height: 64px !important;
+  line-height: 64px !important;
+}
+
+.elder-mode .el-button {
+  font-size: 20px;
+  padding: 14px 24px;
+}
+
+.elder-mode .el-input__inner {
+  font-size: 20px;
+  height: 50px;
+}
+
+.elder-mode .el-table {
+  font-size: 18px;
+}
+
+.elder-mode .el-card {
+  font-size: 18px;
+}
+
+.elder-mode h1,
+.elder-mode h2,
+.elder-mode h3 {
+  font-size: 26px;
+}
+
+/* 增强对比度 */
+.elder-mode .el-card {
+  background-color: #ffffff;
+  border: 1px solid #000000;
+}
+
+.elder-mode .el-menu {
+  background-color: #ffffff;
+  border-right: 1px solid #000000;
+}
+
+.elder-mode .el-menu-item {
+  color: #000000;
+  font-size: 18px;
+}
+
+.elder-mode .el-menu-item.is-active {
+  background-color: #e0e0e0;
+  color: #000000;
+}
+
+.elder-mode .el-header {
+  background-color: #ffffff;
+  border-bottom: 1px solid #000000;
+}
+
+.elder-mode .el-main {
+  background-color: #ffffff;
+}
+
+/* 侧边栏样式 */
+.elder-mode .sidebar {
+  background-color: #ffffff;
+  border-right: 1px solid #000000;
+}
+
+.elder-mode .sidebar-logo-container {
+  background-color: #ffffff;
+  border-bottom: 1px solid #000000;
+}
+
+.elder-mode .logo-title {
+  color: #000000;
+  font-size: 18px;
+}
+
+.elder-mode .sidebar-menu {
+  background-color: #ffffff;
+}
+
+.elder-mode .sidebar-menu .el-menu-item {
+  color: #000000;
+}
+
+.elder-mode .sidebar-menu .el-menu-item:hover {
+  background-color: #e0e0e0 !important;
+}
+
+.elder-mode .sidebar-menu .el-menu-item.is-active {
+  background-color: #e0e0e0 !important;
+  color: #000000 !important;
+}
+
+/* 顶部导航栏样式 */
+.elder-mode .header {
+  background-color: #ffffff;
+  border-bottom: 1px solid #000000;
+}
+
+.elder-mode .header-left {
+  color: #000000;
+}
+
+.elder-mode .user-info {
+  color: #000000;
+}
+
+/* 面包屑样式 */
+.elder-mode .el-breadcrumb__inner {
+  color: #000000;
+  font-size: 18px;
+}
+
+/* 表单样式 */
+.elder-mode .el-form-item__label {
+  font-size: 18px;
+  color: #000000;
+}
+
+.elder-mode .el-textarea__inner {
+  font-size: 20px;
+  min-height: 150px;
+}
+
+/* 标签样式 */
+.elder-mode .el-tag {
+  font-size: 18px;
+  padding: 8px 16px;
+}
+
+/* 分页样式 */
+.elder-mode .el-pagination__sizes {
+  font-size: 18px;
+}
+
+.elder-mode .el-pagination__jump {
+  font-size: 18px;
+}
+
+.elder-mode .el-pagination__button {
+  font-size: 18px;
+  padding: 8px 16px;
+}
+
+/* 开关样式 */
+.elder-mode .el-switch__core {
+  width: 60px;
+  height: 30px;
+}
+
+.elder-mode .el-switch__label {
+  font-size: 18px;
+}
+
+/* 下拉菜单样式 */
+.elder-mode .el-dropdown-menu {
+  font-size: 18px;
+  background-color: #ffffff;
+  border: 1px solid #000000;
+}
+
+.elder-mode .el-dropdown-item {
+  font-size: 18px;
+  color: #000000;
+}
+
+.elder-mode .el-dropdown-item:hover {
+  background-color: #e0e0e0;
+}

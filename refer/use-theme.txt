@@ -1,0 +1,115 @@
+import { defineStore } from 'pinia'
+import { ref, watch, onMounted } from 'vue'
+
+export type ThemeMode = 'light' | 'dark' | 'system'
+export type AccentColor = 'teal' | 'blue' | 'purple' | 'rose' | 'orange' | 'green'
+
+// 颜色配置映射 (对应原 React 代码中的 accentColors)
+const accentColors: Record<AccentColor, { primary: string; primaryGlow: string }> = {
+  teal: { primary: '175 70% 41%', primaryGlow: '175 80% 55%' },
+  blue: { primary: '205 85% 55%', primaryGlow: '205 90% 65%' },
+  purple: { primary: '265 70% 55%', primaryGlow: '265 80% 65%' },
+  rose: { primary: '350 70% 55%', primaryGlow: '350 80% 65%' },
+  orange: { primary: '25 90% 55%', primaryGlow: '25 95% 65%' },
+  green: { primary: '145 65% 40%', primaryGlow: '145 75% 50%' },
+}
+
+export const useThemeStore = defineStore('theme', () => {
+  // 状态
+  const theme = ref<ThemeMode>('system')
+  const accentColor = ref<AccentColor>('teal')
+  const resolvedTheme = ref<'light' | 'dark'>('light')
+
+  // 初始化：从 localStorage 读取
+  onMounted(() => {
+    const savedTheme = localStorage.getItem('theme') as ThemeMode | null
+    const savedColor = localStorage.getItem('accentColor') as AccentColor | null
+    
+    if (savedTheme) theme.value = savedTheme
+    if (savedColor) accentColor.value = savedColor
+    
+    updateResolvedTheme()
+    applyThemeToDOM()
+  })
+
+  // 监听系统主题变化
+  const setupSystemThemeListener = () => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+    const listener = () => {
+      if (theme.value === 'system') {
+        updateResolvedTheme()
+        applyThemeToDOM()
+      }
+    }
+    mediaQuery.addEventListener('change', listener)
+    return () => mediaQuery.removeEventListener('change', listener)
+  }
+
+  // 计算当前实际应该显示的主题 (light 或 dark)
+  const updateResolvedTheme = () => {
+    if (theme.value === 'system') {
+      resolvedTheme.value = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    } else {
+      resolvedTheme.value = theme.value
+    }
+  }
+
+  // 应用主题到 DOM (核心逻辑)
+  const applyThemeToDOM = () => {
+    const root = document.documentElement
+    
+    // 1. 处理明暗模式
+    if (resolvedTheme.value === 'dark') {
+      root.classList.add('dark')
+    } else {
+      root.classList.remove('dark')
+    }
+
+    // 2. 处理强调色 (通过 data 属性或内联样式)
+    // 方法 A: 使用 data 属性配合 CSS (推荐，性能更好)
+    root.setAttribute('data-accent', accentColor.value)
+    
+    // 方法 B: 直接设置 CSS 变量 (更灵活，对应原 React 逻辑)
+    const colors = accentColors[accentColor.value]
+    root.style.setProperty('--primary', colors.primary)
+    root.style.setProperty('--primary-glow', colors.primaryGlow)
+    root.style.setProperty('--ring', colors.primary)
+    root.style.setProperty('--sidebar-primary', colors.primary)
+    root.style.setProperty('--sidebar-ring', colors.primary)
+  }
+
+  // Actions
+  const setTheme = (newTheme: ThemeMode) => {
+    theme.value = newTheme
+    localStorage.setItem('theme', newTheme)
+    updateResolvedTheme()
+    applyThemeToDOM()
+  }
+
+  const setAccentColor = (color: AccentColor) => {
+    accentColor.value = color
+    localStorage.setItem('accentColor', color)
+    applyThemeToDOM()
+  }
+
+  // 监听变化自动应用
+  watch([theme, accentColor], () => {
+    updateResolvedTheme()
+    applyThemeToDOM()
+  })
+
+  // 初始化监听器
+  onMounted(() => {
+    const cleanup = setupSystemThemeListener()
+    // 组件卸载时清理监听 (如果是全局 store 可省略，但为了严谨加上)
+    // 实际上 Pinia store 是单例，通常不需要在组件内清理，除非在 setup 中手动调用
+  })
+
+  return {
+    theme,
+    accentColor,
+    resolvedTheme,
+    setTheme,
+    setAccentColor
+  }
+})

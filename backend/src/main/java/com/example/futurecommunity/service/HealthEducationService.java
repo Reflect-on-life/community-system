@@ -1,0 +1,7 @@
+package com.example.futurecommunity.service;
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.futurecommunity.model.HealthEducation;
+
+public interface HealthEducationService extends IService<HealthEducation> {
+}
